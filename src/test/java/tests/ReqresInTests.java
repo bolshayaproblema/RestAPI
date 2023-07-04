@@ -6,23 +6,24 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.is;
 
-public class ReqresInTests {
+public class ReqresInTests extends TestBase {
 
-@Test
-    void successFulLoginTest(){
-    String requestBody = "{\n" +
-            "    \"email\": \"eve.holt@reqres.in\",\n" +
-            "    \"password\": \"cityslicka\"\n" +
-            "}"; // Bad Practice
-    given()
-            .log().uri()
-            .log().body()
-            .contentType(JSON)
-            .body(requestBody)
-            .when()
-            .post("https://reqres.in/api/login")
+    @Test
+    void successFulLoginTest() {
+        String requestBody = "{\n" +
+                "    \"email\": \"eve.holt@reqres.in\",\n" +
+                "    \"password\": \"cityslicka\"\n" +
+                "}"; // Bad Practice
+        given()
+                .log().uri()
+                .log().body()
+                .contentType(JSON)
+                .body(requestBody)
+                .when()
+                .post("/login")
             .then()
             .log().status()
             .log().body()
@@ -40,7 +41,7 @@ public class ReqresInTests {
             .log().body()
             .body(requestBody)
             .when()
-            .post("https://reqres.in/api/login")
+            .post("/login")
             .then()
             .log().status()
             .log().body()
@@ -53,7 +54,7 @@ public class ReqresInTests {
             .log().uri()
             .log().body()
             .when()
-            .post("https://reqres.in/api/login")
+            .post("/login")
             .then()
             .log().status()
             .log().body()
@@ -62,11 +63,11 @@ public class ReqresInTests {
  @Test
  @DisplayName("Not found user")
     void tests404(){
-    given()
-            .log().uri()
-            .log().body()
-            .when()
-            .get("https://reqres.in/api/users/23")
+     given()
+             .log().uri()
+             .log().body()
+             .when()
+             .get("/users/23")
             .then()
             .log().status()
             .log().body()
@@ -79,7 +80,7 @@ public class ReqresInTests {
             .log().uri()
             .log().body()
             .when()
-            .delete("https://reqres.in/api/users/2")
+            .delete("/users/2")
             .then()
             .log().status()
             .log().body()
@@ -87,11 +88,11 @@ public class ReqresInTests {
 }@Test
  @DisplayName("existing ids")
     void foundUsersTest(){
-    given()
-            .log().uri()
-            .log().body()
-            .when()
-            .get("https://reqres.in/api/users?page=2")
+        given()
+                .log().uri()
+                .log().body()
+                .when()
+                .get("/users?page=2")
             .then()
             .log().status()
             .log().body()
