@@ -85,8 +85,8 @@ public class ReqresInTests {
             .log().body()
             .statusCode(204);
 }@Test
- @DisplayName("find a user by id")
-    void negativeFoundUsersTest(){
+ @DisplayName("existing ids")
+    void foundUsersTest(){
     given()
             .log().uri()
             .log().body()
@@ -96,7 +96,7 @@ public class ReqresInTests {
             .log().status()
             .log().body()
             .statusCode(200)
-            .body("data.id", hasItems(3, 8, 9));
+            .body("data.id", hasItems(7, 8, 9));
 }
 }
 
