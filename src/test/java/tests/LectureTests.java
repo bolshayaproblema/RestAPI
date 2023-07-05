@@ -100,6 +100,7 @@ public class LectureTests {
                 .log().body()
                 .statusCode(200)
                 .extract().asString();
+
         assertEquals(expectedResponse,actualResponse);
     }
     @Test
