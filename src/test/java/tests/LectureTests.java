@@ -130,7 +130,7 @@ public class LectureTests {
                 .log().status()
                 .log().body()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("shhemes/status-response-scheme.json"))
+                .body(matchesJsonSchemaInClasspath("schemes/status-response-scheme.json"))
                 .body("total", is(20))
                 .body("browsers.chrome", hasKey("100.0"));
     }
