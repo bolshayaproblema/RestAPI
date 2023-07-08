@@ -1,9 +1,10 @@
 package tests;
 
 
-import models.LoginBodyModel;
-import models.LoginResponseModel;
-import org.junit.jupiter.api.DisplayName;
+import models.lombok.LoginBodyLombokModel;
+import models.lombok.LoginResponseLombokModel;
+import models.pojo.LoginBodyPojoModel;
+import models.pojo.LoginResponsePojoModel;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -36,11 +37,11 @@ public class LectureReqresExtendedTests extends TestBase {
     }
     @Test
     void successFulLoginWithPojoModelsTest() {
-        LoginBodyModel requestBody = new LoginBodyModel();
+        LoginBodyPojoModel requestBody = new LoginBodyPojoModel();
         requestBody.setEmail("eve.holt@reqres.in");
         requestBody.setPassword("cityslicka");
 
-        LoginResponseModel loginResponse = given()
+        LoginResponsePojoModel loginResponse = given()
                 .log().uri()
                 .log().body()
                 .contentType(JSON)
@@ -51,7 +52,28 @@ public class LectureReqresExtendedTests extends TestBase {
                 .log().status()
                 .log().body()
                 .statusCode(200)
-                .extract().as(LoginResponseModel.class);
+                .extract().as(LoginResponsePojoModel.class);
+
+        assertEquals("QpwL5tke4Pnpja7X4", loginResponse.getToken());
+    }
+    @Test
+    void successFulLoginWithLombokModelsTest() {
+        LoginBodyLombokModel requestBody = new LoginBodyLombokModel();
+        requestBody.setEmail("eve.holt@reqres.in");
+        requestBody.setPassword("cityslicka");
+
+        LoginResponseLombokModel loginResponse = given()
+                .log().uri()
+                .log().body()
+                .contentType(JSON)
+                .body(requestBody)
+                .when()
+                .post("/login")
+                .then()
+                .log().status()
+                .log().body()
+                .statusCode(200)
+                .extract().as(LoginResponseLombokModel.class);
 
         assertEquals("QpwL5tke4Pnpja7X4", loginResponse.getToken());
     }
