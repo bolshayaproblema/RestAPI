@@ -48,6 +48,7 @@ public class LoginSpecs {
             .expectStatusCode(400)
             .expectBody("error", notNullValue())
             .build();
+
     public static ResponseSpecification response404Spec = new ResponseSpecBuilder()
             .log(STATUS)
             .log(BODY)

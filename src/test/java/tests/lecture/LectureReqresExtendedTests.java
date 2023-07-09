@@ -14,8 +14,7 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static specs.LoginSpecs.negativeRequestSpec;
-import static specs.LoginSpecs.responseId200Spec;
+import static specs.LoginSpecs.*;
 
 public class LectureReqresExtendedTests extends TestBase {
 
@@ -150,25 +149,6 @@ public class LectureReqresExtendedTests extends TestBase {
                         .log().status()
                         .log().body()
                         .statusCode(200)
-                        .extract().as(LoginResponseLombokModel.class));
-
-        step("Check response", () ->
-                assertEquals("QpwL5tke4Pnpja7X4", loginResponse.getToken()));
-    }
-    @Test
-    void successFulLoginWithSpecsTest() {
-        LoginBodyLombokModel requestBody = new LoginBodyLombokModel();
-        requestBody.setEmail("eve.holt@reqres.in");
-        requestBody.setPassword("cityslicka");
-
-        LoginResponseLombokModel loginResponse = step("make request", () ->
-                given()
-                        .spec(negativeRequestSpec)
-                        .body(requestBody)
-                        .when()
-                        .post("/login")
-                        .then()
-                        .spec(responseId200Spec)
                         .extract().as(LoginResponseLombokModel.class));
 
         step("Check response", () ->
