@@ -8,9 +8,11 @@ repositories {
     mavenCentral()
 }
 
-def restAssuredVersion = "5.3.0",
-    slf4jVersion = "2.0.7",
-        allureVersion = "2.21.0"
+def selenideVersion = "6.15.0",
+    restAssuredVersion = "5.3.0",
+    allureVersion = "2.19.0",
+    junitVersion = "5.9.3",
+    slf4jVersion = "2.0.7"
 
 allure {
     report {
@@ -28,21 +30,23 @@ allure {
 
 dependencies {
     testImplementation (
+            "com.codeborne:selenide:$selenideVersion",
+            "io.qameta.allure:allure-selenide:$allureVersion",
             "io.rest-assured:rest-assured:$restAssuredVersion",
             "io.rest-assured:json-schema-validator:$restAssuredVersion",
             "io.qameta.allure:allure-rest-assured:$allureVersion",
-            "org.junit.jupiter:junit-jupiter:5.9.2",
+            "org.junit.jupiter:junit-jupiter:$junitVersion",
             "org.slf4j:slf4j-simple:$slf4jVersion"
     )
 }
 
 tasks.withType(Test) {
-    useJUnitPlatform() // все тесты с Junit платформы
+    useJUnitPlatform()
 
     testLogging {
         lifecycle {
             events "started", "skipped", "failed", "standard_error", "standard_out"
             exceptionFormat "short"
         }
-    } // всё что находится выше нужно для логирования
+    }
 }
