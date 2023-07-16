@@ -18,7 +18,7 @@ public class AuthApi extends TestBase {
                 .post("/login")
                 .then()
                 .log().all()
-                .statusCode(200)
+                .statusCode(302)
                 .extract().cookie(authCookieKey);
     }
 }

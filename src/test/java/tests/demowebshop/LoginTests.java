@@ -41,7 +41,7 @@ public class LoginTests extends  TestBase{
                     .extract()
                     .cookie(authCookieKey);
 
-            open("https://demowebshop.tricentis.com/Content/jquery-ui-themes/smoothness/images/ui-bg_flat_75_ffffff_40x100.png");
+            open("/Content/jquery-ui-themes/smoothness/images/ui-bg_flat_75_ffffff_40x100.png");
             Cookie authCookie = new Cookie(authCookieKey, authCookeValue);
             getWebDriver().manage().addCookie(authCookie);
         });
