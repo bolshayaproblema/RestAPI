@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeAll;
 
 public class TestBase {
  String login = "yu@yandex.ru";
- String password = "yu@yandex.ru";
+ String password = "yu@yandex.ru1";
 
     @BeforeAll
     static void setup() {
