@@ -1,8 +1,5 @@
 package tests.demowebshop;
 
-import com.codeborne.selenide.Configuration;
-import io.restassured.RestAssured;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Cookie;
 
@@ -13,16 +10,8 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 
-public class LoginTests {
+public class LoginTests extends  TestBase{
 
-    String login = "yu@yandex.ru",
-            password = "yu@yandex.ru1";
-
-    @BeforeAll
-    static void setup() {
-        Configuration.baseUrl = "https://demowebshop.tricentis.com/";
-        RestAssured.baseURI = "https://demowebshop.tricentis.com/";
-    }
 
     @Test
     void loginWithUITest() {
@@ -39,7 +28,7 @@ public class LoginTests {
     @Test
     void loginWithApiTest() {
         step("Get authorization cookie by Api and set it to browser", () -> {
-            String autCookieKey = "NOPCOMMERCE.AUTH";
+            String authCookieKey = "NOPCOMMERCE.AUTH";
             String authCookeValue = given()
                     .contentType("application/x-www-form-urlencoded") // - headers
                     .formParam("Email", login)
@@ -50,10 +39,10 @@ public class LoginTests {
                     .log().all()
                     .statusCode(302)
                     .extract()
-                    .cookie(autCookieKey);
+                    .cookie(authCookieKey);
 
             open("https://demowebshop.tricentis.com/Content/jquery-ui-themes/smoothness/images/ui-bg_flat_75_ffffff_40x100.png");
-            Cookie authCookie = new Cookie(autCookieKey, authCookeValue);
+            Cookie authCookie = new Cookie(authCookieKey, authCookeValue);
             getWebDriver().manage().addCookie(authCookie);
         });
 
